@@ -1,6 +1,9 @@
 'use client';
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, Suspense } from 'react';
+
+// Force dynamic rendering
+export const dynamic = 'force-dynamic';
 import { useSearchParams, useRouter } from 'next/navigation';
 import Header from '@/components/layout/Header';
 import PropertyList from '@/components/property/PropertyList';
@@ -27,7 +30,7 @@ import { Property, PropertySearchFilters, Category } from '@/types/property';
 import { PaginatedResponse } from '@/lib/api';
 import { debounce } from '@/lib/utils';
 
-export default function PropertiesNewPage() {
+function PropertiesNewPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
   
@@ -322,5 +325,14 @@ export default function PropertiesNewPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+// Wrap with Suspense
+export default function PropertiesPageWrapper() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <PropertiesNewPage />
+    </Suspense>
   );
 }
