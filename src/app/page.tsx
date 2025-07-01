@@ -6,125 +6,110 @@ import Header from "@/components/layout/Header";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
       <Header />
 
       {/* Hero Section */}
-      <section className="py-16">
+      <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-6">
+          <h2 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
             Find Your Dream Home
           </h2>
-          <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+          <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
             Discover the perfect property with our comprehensive real estate platform.
-            From friendly <span className="text-green-600">green</span> homes to luxury affordable apartments, we have it all.
+            From luxury homes to affordable apartments, we have it all.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/properties">
-              <Button size="lg" className="text-lg px-8 py-3">
-                Browse Properties
-              </Button>
-            </Link>
-            <Link href="/membership">
+            <Button size="lg" className="text-lg px-8 py-3">
+              Browse Properties
+            </Button>
+            <Link href="/auth/register">
               <Button variant="outline" size="lg" className="text-lg px-8 py-3">
-                Membership
+                Get Started
               </Button>
             </Link>
           </div>
-        </div>
-      </section>
 
-      {/* Quick Login Section */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mt-5 mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="flex items-center justify-between">
-            <img src="/images/house1.jpg" alt="house" className="w-3/5 h-64 object-cover rounded-lg" />
-            <div className="w-2/5 text-left ml-10">
-              <h2 className="text-lg font-bold text-gray-900 mb-2">
-                Various of houses and apartments are awaiting...
-              </h2>
-              <p className="text-sm text-gray-600 mb-4">
-                Sign in now to get your dream home.
-              </p>
-              <div className="flex justify-start">
-                <Link href="/auth/register">
-                  <Button>
-                    Register
-                  </Button>
-                </Link>
+          {/* Quick Login Section */}
+          <div className="mt-12 p-6 bg-white/80 backdrop-blur-sm rounded-lg shadow-lg max-w-md mx-auto">
+            <h3 className="text-lg font-semibold text-gray-900 mb-4 text-center">
+              Quick Access
+            </h3>
+            <div className="flex flex-col sm:flex-row gap-3">
+              <Link href="/auth/login" className="flex-1">
+                <Button variant="outline" className="w-full">
+                  Login
+                </Button>
+              </Link>
+              <Link href="/auth/register" className="flex-1">
+                <Button className="w-full">
+                  Register
+                </Button>
+              </Link>
+            </div>
+            <div className="mt-4 text-center">
+              <p className="text-sm text-gray-600 mb-2">Demo Accounts:</p>
+              <div className="text-xs text-gray-500 space-y-1">
+                <p><strong>Admin:</strong> admin / admin123</p>
+                <p><strong>User:</strong> testuser2 / password123</p>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* About Us */}
-      <section
-        className="py-20 relative"
-        style={{
-          backgroundImage: "url('/images/about.jpg')",
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-        }}
-      >
-        {/* Overlay for better text contrast */}
-        <div className="absolute inset-0 bg-black/50"></div>
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ">
-          <h3 className="text-3xl font-bold text-center text-white mb-6">
+      {/* Features */}
+      <section className="py-16 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h3 className="text-3xl font-bold text-center text-gray-900 mb-12">
             Why Choose Us?
           </h3>
-          <p className="text-white mx-auto text-center">
-            We are dedicated to providing to our customers the most suitable home.
-            <br />
-            For more ambitious customers, we also provide a membership service.
-          </p>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-10">
-            <Card className="transition-colors duration-200 group hover:bg-green-700 hover:border-green-700 hover:text-white">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <Card>
               <CardHeader>
-                <CardTitle className="flex items-center gap-2 group-hover:text-white">
+                <CardTitle className="flex items-center gap-2">
                   🔍 <span>Smart Search</span>
                 </CardTitle>
-                <CardDescription className="group-hover:text-white">
+                <CardDescription>
                   Advanced filters to find exactly what you're looking for
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <p className="text-gray-600 group-hover:text-white">
+                <p className="text-gray-600">
                   Use our intelligent search system with location, price, and amenity filters
                   to discover properties that match your exact requirements.
                 </p>
               </CardContent>
             </Card>
 
-            <Card className="transition-colors duration-200 group hover:bg-green-700 hover:border-green-700 hover:text-white">
+            <Card>
               <CardHeader>
-                <CardTitle className="flex items-center gap-2 group-hover:text-white">
+                <CardTitle className="flex items-center gap-2">
                   🤖 <span>AI Assistant</span>
                 </CardTitle>
-                <CardDescription className="group-hover:text-white">
+                <CardDescription>
                   Get personalized recommendations from our AI chatbot
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <p className="text-gray-600 group-hover:text-white">
+                <p className="text-gray-600">
                   Our AI-powered chatbot provides instant answers to your questions
                   and helps you find the perfect property based on your preferences.
                 </p>
               </CardContent>
             </Card>
 
-            <Card className="transition-colors duration-200 group hover:bg-green-700 hover:border-green-700 hover:text-white">
+            <Card>
               <CardHeader>
-                <CardTitle className="flex items-center gap-2 group-hover:text-white">
+                <CardTitle className="flex items-center gap-2">
                   📱 <span>Modern Platform</span>
                 </CardTitle>
-                <CardDescription className="group-hover:text-white">
+                <CardDescription>
                   Built with the latest technology for the best experience
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <p className="text-gray-600 group-hover:text-white">
+                <p className="text-gray-600">
                   Experience our cutting-edge platform built with Next.js, TypeScript,
                   and Tailwind CSS for lightning-fast performance.
                 </p>
@@ -134,25 +119,33 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="py-16 bg-gradient-to-br from-gray-150 to-gray-200">
-        <div className=" max-w-7xl mx-auto sm:px-6 lg:px-8 text-center">
-          <h3 className="text-3xl font-bold">
+      {/* Tech Stack */}
+      <section className="py-16 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h3 className="text-3xl font-bold text-gray-900 mb-8">
             Built with Modern Technology
           </h3>
-          <div className="flex flex-wrap justify-center gap-4 my-8">
-            <Badge className="text-lg px-4 py-2">Next.js 15</Badge>
-            <Badge className="text-lg px-4 py-2">TypeScript</Badge>
-            <Badge className="text-lg px-4 py-2">Tailwind CSS</Badge>
-            <Badge className="text-lg px-4 py-2">Shadcn/UI</Badge>
-            <Badge className="text-lg px-4 py-2">Turbopack</Badge>
+          <div className="flex flex-wrap justify-center gap-4">
+            <Badge variant="secondary" className="text-lg px-4 py-2">Next.js 15</Badge>
+            <Badge variant="secondary" className="text-lg px-4 py-2">TypeScript</Badge>
+            <Badge variant="secondary" className="text-lg px-4 py-2">Tailwind CSS</Badge>
+            <Badge variant="secondary" className="text-lg px-4 py-2">Shadcn/UI</Badge>
+            <Badge variant="secondary" className="text-lg px-4 py-2">Turbopack</Badge>
           </div>
-          <p className=" text-gray-500">
-            © 2025 Eco Estate 🏠
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-gray-900 text-white py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h4 className="text-2xl font-bold mb-4">🏠 Real Estate Platform</h4>
+          <p className="text-gray-400 mb-6">
+            Your trusted partner in finding the perfect home
+          </p>
+          <p className="text-gray-500">
+            © 2024 Real Estate Platform. Built with ❤️ using Next.js and Shadcn/UI
           </p>
         </div>
-
-
       </footer>
     </div>
   );
