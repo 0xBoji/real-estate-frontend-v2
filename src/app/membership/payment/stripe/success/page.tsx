@@ -1,6 +1,9 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Suspense } from 'react';
+
+// Force dynamic rendering
+export const dynamic = 'force-dynamic';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
 import Header from '@/components/layout/Header';
@@ -30,7 +33,7 @@ interface StripeSessionData {
   created: number;
 }
 
-export default function StripeSuccessPage() {
+function StripeSuccessPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { user } = useAuth();
@@ -322,5 +325,21 @@ export default function StripeSuccessPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+// Wrap with Suspense
+export default function StripeSuccessPageWrapper() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <p className="text-gray-600">Processing payment result...</p>
+        </div>
+      </div>
+    }>
+      <StripeSuccessPage />
+    </Suspense>
   );
 }

@@ -248,11 +248,28 @@ export const membershipApi = {
   },
 };
 
+// Property search parameters
+export interface PropertySearchParams {
+  city?: string;
+  district?: string;
+  propertyType?: 'HOUSE' | 'APARTMENT' | 'LAND' | 'VILLA' | 'COMMERCIAL' | 'OFFICE';
+  listingType?: 'SALE' | 'RENT';
+  minPrice?: number;
+  maxPrice?: number;
+  categoryId?: number;
+  page?: number;
+  size?: number;
+  sortBy?: string;
+  sortDir?: 'asc' | 'desc';
+}
+
 // Public API
 export const publicApi = {
-  getProperties: async (page = 0, size = 10): Promise<PaginatedResponse<Property>> => {
+  getProperties: async (page = 0, size = 10, sortBy = 'createdAt', sortDir = 'desc'): Promise<PaginatedResponse<Property>> => {
     try {
-      const response = await apiClient.get<PaginatedResponse<Property>>(`/properties?page=${page}&size=${size}`);
+      const response = await apiClient.get<PaginatedResponse<Property>>(
+        `/properties?page=${page}&size=${size}&sortBy=${sortBy}&sortDir=${sortDir}`
+      );
 
       // If backend returns empty data, use mock data for demo
       if (response.data.totalElements === 0) {
@@ -283,14 +300,52 @@ export const publicApi = {
     }
   },
 
-  searchProperties: async (params: any): Promise<Property[]> => {
+  searchProperties: async (params: PropertySearchParams): Promise<PaginatedResponse<Property>> => {
     try {
-      const response = await apiClient.get<Property[]>('/properties/search', { params });
+      const queryParams = new URLSearchParams();
+
+      Object.entries(params).forEach(([key, value]) => {
+        if (value !== undefined && value !== null && value !== '') {
+          queryParams.append(key, value.toString());
+        }
+      });
+
+      const response = await apiClient.get<PaginatedResponse<Property>>(
+        `/properties/search?${queryParams.toString()}`
+      );
+      return response.data;
+    } catch (error) {
+      console.log('Backend not available, using mock data');
+      const { createMockPaginatedResponse } = await import('./mockData');
+      return createMockPaginatedResponse(params.page || 0, params.size || 10);
+    }
+  },
+
+  getFeaturedProperties: async (limit = 10): Promise<Property[]> => {
+    try {
+      const response = await apiClient.get<Property[]>(`/properties/featured?limit=${limit}`);
       return response.data;
     } catch (error) {
       console.log('Backend not available, using mock data');
       const { mockProperties } = await import('./mockData');
-      return mockProperties;
+      return mockProperties.slice(0, limit);
+    }
+  },
+
+  getCategories: async (): Promise<any[]> => {
+    try {
+      const response = await apiClient.get<any[]>('/categories');
+      return response.data;
+    } catch (error) {
+      console.log('Backend not available, using mock categories');
+      return [
+        { id: 1, name: 'Nhà ở', description: 'Residential properties' },
+        { id: 2, name: 'Chung cư', description: 'Apartments and condos' },
+        { id: 3, name: 'Đất nền', description: 'Land plots' },
+        { id: 4, name: 'Biệt thự', description: 'Villas and luxury homes' },
+        { id: 5, name: 'Thương mại', description: 'Commercial properties' },
+        { id: 6, name: 'Văn phòng', description: 'Office spaces' }
+      ];
     }
   },
 };

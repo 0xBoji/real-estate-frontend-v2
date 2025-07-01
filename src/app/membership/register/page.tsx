@@ -1,6 +1,9 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
+
+// Force dynamic rendering
+export const dynamic = 'force-dynamic';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
 import Header from '@/components/layout/Header';
@@ -125,7 +128,7 @@ interface RegistrationFormData {
   };
 }
 
-export default function MembershipRegisterPage() {
+function MembershipRegisterPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { user } = useAuth();
@@ -873,5 +876,14 @@ export default function MembershipRegisterPage() {
         </div>
       </div>
     </ProtectedRoute>
+  );
+}
+
+// Wrap with Suspense
+export default function MembershipRegisterPageWrapper() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <MembershipRegisterPage />
+    </Suspense>
   );
 }
