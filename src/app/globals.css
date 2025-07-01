@@ -116,7 +116,38 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #3F8A1F 0%, #6DC36D 100%);
+  border-radius: 8px;
+  min-height: 40px;
+  border: 2px solid #f3f4f6;
+  /* matches Tailwind's gray-100 */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #35701A 0%, #3F8A1F 100%);
+}
+
+::-webkit-scrollbar-track {
+  background: #f3f4f6;
+  /* Tailwind's gray-100 */
+  border-radius: 8px;
+}
+
+/* For Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #3F8A1F #f3f4f6;
 }

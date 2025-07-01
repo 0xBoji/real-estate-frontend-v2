@@ -29,25 +29,24 @@ export default function Header() {
     <header className="bg-white shadow-sm border-b sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
+
+        <nav className="flex items-center space-x-4">
+            <Button variant="ghost" asChild>
+              <Link href="/properties">Properties</Link>
+            </Button>
+            <Button variant="ghost" asChild>
+              <Link href="/membership">Membership</Link>
+            </Button>
+          </nav>
+
           <div className="flex items-center">
             <Link href="/" className="flex items-center">
-              <Home className="h-8 w-8 text-blue-600 mr-2" />
-              <h1 className="text-2xl font-bold text-gray-900">Real Estate</h1>
+              <Home className="h-8 w-8 text-green-600 mr-2" />
+              <h1 className="text-2xl font-bold text-gray-900">Eco Estate</h1>
             </Link>
           </div>
           
           <nav className="flex items-center space-x-4">
-            <Button variant="ghost" asChild>
-              <Link href="/">Home</Link>
-            </Button>
-            <Button variant="ghost" asChild>
-              <Link href="/properties">Properties</Link>
-            </Button>
-
-            <Button variant="ghost" asChild>
-              <Link href="/membership">Membership</Link>
-            </Button>
-
             {isAuthenticated && (
               <Button variant="ghost" asChild>
                 <Link href="/properties/add">Add Property</Link>
