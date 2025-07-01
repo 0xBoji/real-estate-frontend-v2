@@ -6,7 +6,7 @@ import Header from "@/components/layout/Header";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+    <div className="min-h-screen bg-gradient-to-br from-gray-150 to-gray-200">
       <Header />
 
       {/* Hero Section */}
@@ -27,7 +27,7 @@ export default function Home() {
             </Link>
             <Link href="/membership">
               <Button variant="outline" size="lg" className="text-lg px-8 py-3">
-                Membership
+                See Membership
               </Button>
             </Link>
           </div>
@@ -135,24 +135,30 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="py-16 bg-gradient-to-br from-gray-150 to-gray-200">
+      <footer className="py-12 bg-gradient-to-br from-gray-150 to-gray-200">
         <div className=" max-w-7xl mx-auto sm:px-6 lg:px-8 text-center">
-          <h3 className="text-3xl font-bold">
-            Built with Modern Technology
-          </h3>
-          <div className="flex flex-wrap justify-center gap-4 my-8">
-            <Badge className="text-lg px-4 py-2">Next.js 15</Badge>
-            <Badge className="text-lg px-4 py-2">TypeScript</Badge>
-            <Badge className="text-lg px-4 py-2">Tailwind CSS</Badge>
-            <Badge className="text-lg px-4 py-2">Shadcn/UI</Badge>
-            <Badge className="text-lg px-4 py-2">Turbopack</Badge>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <Link href="/properties" className="text-lg px-8 py-3 transition-colors duration-200 hover:text-green-600">
+              Properties
+            </Link>
+            <span className="hidden sm:inline text-gray-400">|</span>
+            <Link href="/membership" className="text-lg px-8 py-3 transition-colors duration-200 hover:text-green-600">
+              Membership
+            </Link>
+            <span className="hidden sm:inline text-gray-400">|</span>
+            <Link href="/" className="text-lg px-8 py-3 transition-colors duration-200 hover:text-green-600">
+              Terms of Service
+            </Link>
+            <span className="hidden sm:inline text-gray-400">|</span>
+            <Link href="/" className="text-lg px-8 py-3 transition-colors duration-200 hover:text-green-600">
+              Privacy Policy
+            </Link>
           </div>
-          <p className=" text-gray-500">
-            © 2025 Eco Estate 🏠
+
+          <p className="mt-10 text-gray-500">
+            © 2025 Eco Estate
           </p>
         </div>
-
-
       </footer>
     </div>
   );
