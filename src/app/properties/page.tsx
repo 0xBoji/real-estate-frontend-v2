@@ -457,7 +457,7 @@ export default function PropertiesPage() {
           ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8"
           : "space-y-6 mb-8"
         }>
-          {properties?.content.map((property) => (
+          {properties?.content?.map((property) => (
             viewMode === 'grid' ? (
               // Grid View
               <Card key={property.id} className="overflow-hidden hover:shadow-lg transition-shadow group pt-0">
@@ -527,10 +527,10 @@ export default function PropertiesPage() {
               </Card>
             ) : (
               // List View
-              <>
+              <React.Fragment key={property.id}>
                 {/* Mobile Size */}
                 <div className="block md:hidden">
-                  <Card key={property.id} className="overflow-hidden relative group p-0">
+                  <Card className="overflow-hidden relative group p-0">
                     <div className="relative w-full h-48">
                       <Image src="/images/house1.jpg" alt={property.title} fill className="object-cover w-full h-full" />
                       <div className="absolute inset-0 bg-black/50 group-hover:bg-black/70 transition-colors duration-200" />
@@ -605,7 +605,7 @@ export default function PropertiesPage() {
                 </div>
                 {/* Desktop Size */}
                 <div className="hidden md:block">
-                  <Card key={property.id} className="overflow-hidden hover:shadow-lg transition-shadow">
+                  <Card className="overflow-hidden hover:shadow-lg transition-shadow">
                     <CardContent className="px-6">
                       <div className="flex gap-6">
                         <div className="w-80 h-44 rounded-lg flex-shrink-0 overflow-hidden relative">
@@ -682,7 +682,7 @@ export default function PropertiesPage() {
                     </CardContent>
                   </Card>
                 </div>
-              </>
+              </React.Fragment>
             )
           ))}
         </div>
