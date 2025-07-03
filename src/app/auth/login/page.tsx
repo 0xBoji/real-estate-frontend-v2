@@ -12,7 +12,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Loader2, Eye, EyeOff } from 'lucide-react';
+import { Loader2, Eye, EyeOff, ArrowLeft } from 'lucide-react';
 import { toast } from 'sonner';
 
 function LoginPage() {
@@ -54,7 +54,7 @@ function LoginPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!validateForm()) {
       return;
     }
@@ -74,7 +74,7 @@ function LoginPage() {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
-    
+
     // Clear error when user starts typing
     if (errors[name]) {
       setErrors(prev => ({ ...prev, [name]: '' }));
@@ -82,29 +82,25 @@ function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
         <div className="text-center">
-          <div className="mx-auto h-12 w-12 bg-blue-600 rounded-lg flex items-center justify-center mb-4">
-            <span className="text-white text-2xl">🏠</span>
-          </div>
-          <h1 className="text-3xl font-bold text-gray-900">Real Estate Platform</h1>
-          <p className="mt-2 text-sm text-gray-600">
-            Professional property management system
-          </p>
+          <h1 className="text-3xl font-bold text-gray-900">Eco Real Estate</h1>
         </div>
 
         <Card>
-          <CardHeader>
-            <CardTitle>Sign in to your account</CardTitle>
+          <CardHeader className="text-center">
+            <CardTitle>
+              <h2 className="text-xl font-bold">Sign In</h2>
+            </CardTitle>
             <CardDescription>
-              Enter your credentials to access the platform
+              Welcome back, user!
             </CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <Label htmlFor="username">Username</Label>
+                <Label htmlFor="username" className="mb-2 text-md">Username</Label>
                 <Input
                   id="username"
                   name="username"
@@ -120,7 +116,7 @@ function LoginPage() {
               </div>
 
               <div>
-                <Label htmlFor="password">Password</Label>
+                <Label htmlFor="password" className="mb-2 text-md">Password</Label>
                 <div className="relative">
                   <Input
                     id="password"
@@ -187,6 +183,15 @@ function LoginPage() {
                 <Link href="/auth/register">
                   <Button variant="outline" className="w-full">
                     Create new account
+                  </Button>
+                </Link>
+              </div>
+
+              <div className="mt-2">
+                <Link href="/">
+                  <Button variant="ghost" className="w-full">
+                    <ArrowLeft className="mt-1 h-4 w-4" />
+                    Return to home
                   </Button>
                 </Link>
               </div>

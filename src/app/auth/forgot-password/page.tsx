@@ -22,19 +22,19 @@ export default function ForgotPasswordPage() {
       setError('Email is required');
       return false;
     }
-    
+
     if (!validationUtils.isValidEmail(email)) {
       setError('Please enter a valid email address');
       return false;
     }
-    
+
     setError('');
     return true;
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!validateEmail()) {
       return;
     }
@@ -78,9 +78,9 @@ export default function ForgotPasswordPage() {
                   {email}
                 </p>
                 <p className="mt-4 text-sm text-gray-600">
-                  If you don't see the email, check your spam folder or try again.
+                  If you don't see the email, please check your spam folder or try again.
                 </p>
-                
+
                 <div className="mt-6 space-y-3">
                   <Button
                     onClick={() => {
@@ -92,11 +92,11 @@ export default function ForgotPasswordPage() {
                   >
                     Try different email
                   </Button>
-                  
+
                   <Link href="/auth/login">
                     <Button variant="ghost" className="w-full">
                       <ArrowLeft className="mr-2 h-4 w-4" />
-                      Back to login
+                      Return to sign in
                     </Button>
                   </Link>
                 </div>
@@ -112,23 +112,25 @@ export default function ForgotPasswordPage() {
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
         <div className="text-center">
-          <h1 className="text-3xl font-bold text-gray-900">Real Estate Platform</h1>
+          <h1 className="text-3xl font-bold text-gray-900">Eco Real Estate</h1>
           <p className="mt-2 text-sm text-gray-600">
             Reset your password
           </p>
         </div>
 
         <Card>
-          <CardHeader>
-            <CardTitle>Forgot your password?</CardTitle>
+          <CardHeader className="text-center">
+            <CardTitle>
+              <h2 className="text-xl font-bold">Forgot your password?</h2>
+            </CardTitle>
             <CardDescription>
-              Enter your email address and we'll send you instructions to reset your password.
+              Enter your email address and we'll send you instructions to reset your password
             </CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <Label htmlFor="email">Email address</Label>
+                <Label htmlFor="email" className="mb-2 text-md">Email address</Label>
                 <Input
                   id="email"
                   name="email"
@@ -151,10 +153,10 @@ export default function ForgotPasswordPage() {
                 {isLoading ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    Sending instructions...
+                    Sending...
                   </>
                 ) : (
-                  'Send reset instructions'
+                  'Send'
                 )}
               </Button>
             </form>
@@ -162,8 +164,8 @@ export default function ForgotPasswordPage() {
             <div className="mt-6">
               <Link href="/auth/login">
                 <Button variant="ghost" className="w-full">
-                  <ArrowLeft className="mr-2 h-4 w-4" />
-                  Back to login
+                  <ArrowLeft className="mt-1 h-4 w-4" />
+                  Return to sign in
                 </Button>
               </Link>
             </div>
