@@ -10,7 +10,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { 
+import {
   Select,
   SelectContent,
   SelectItem,
@@ -35,6 +35,7 @@ import {
   Eye
 } from 'lucide-react';
 import { toast } from 'sonner';
+import Image from 'next/image';
 
 export default function PropertiesPage() {
   const [properties, setProperties] = useState<PaginatedResponse<Property> | null>(null);
@@ -260,7 +261,7 @@ export default function PropertiesPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
-      
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-2">Properties</h1>
@@ -334,7 +335,7 @@ export default function PropertiesPage() {
             </Button>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {/* Property Type */}
             <div>
               <Label className="text-sm font-medium mb-2 block">Property Type</Label>
@@ -459,122 +460,82 @@ export default function PropertiesPage() {
           {properties?.content.map((property) => (
             viewMode === 'grid' ? (
               // Grid View
-              <Card key={property.id} className="overflow-hidden hover:shadow-lg transition-shadow group">
-                <div className="relative h-48 bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center">
-                  <Building className="h-16 w-16 text-blue-400" />
-                  <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                    <Button size="sm" variant="secondary" className="h-8 w-8 p-0">
-                      <Heart className="h-4 w-4" />
-                    </Button>
-                  </div>
-                  <div className="absolute top-2 left-2">
+              <Card key={property.id} className="overflow-hidden hover:shadow-lg transition-shadow group pt-0">
+                <div className="relative h-48 w-full">
+                  <Image src="/images/house1.jpg" alt={property.title} fill className="object-cover w-full h-full rounded-b-none rounded-t" />
+                  <div className="absolute top-2 left-2 flex items-center gap-2 mb-3">
                     <Badge className={getListingTypeColor(property.listingType)}>
                       {property.listingType}
                     </Badge>
+                    <Badge className={getPropertyTypeColor(property.propertyType)}>
+                      {property.propertyType}
+                    </Badge>
+                  </div>
+                  <div className="absolute bottom-2 right-2 flex gap-2">
+                    <span className="text-xs text-white bg-black/40 rounded px-2 py-0.5">Posted on {formatDate(property.createdAt)}</span>
                   </div>
                 </div>
-                <CardContent className="p-4">
-                  <div className="flex items-start justify-between mb-2">
+                <CardContent>
+                  <div className="flex items-start justify-between">
                     <h3 className="font-semibold text-lg text-gray-900 line-clamp-1">
                       {property.title}
                     </h3>
                   </div>
-
-                  <div className="flex items-center text-gray-600 mb-2">
+                  <div className="flex items-center text-gray-600 my-2">
                     <MapPin className="h-4 w-4 mr-1" />
-                    <span className="text-sm line-clamp-1">
-                      {property.address}, {property.city}
-                    </span>
+                    <span className="text-md">{property.city}</span>
                   </div>
-
                   <div className="flex items-center gap-4 text-sm text-gray-600 mb-3">
                     <div className="flex items-center">
                       <Bed className="h-4 w-4 mr-1" />
-                      <span>{property.bedrooms}</span>
+                      <span>
+                        {property.bedrooms}
+                        <span className="hidden xl:inline">
+                          {property.bedrooms === 1 || property.bedrooms === 0 ? ' room' : ' rooms'}
+                        </span>
+                      </span>
                     </div>
                     <div className="flex items-center">
                       <Bath className="h-4 w-4 mr-1" />
-                      <span>{property.bathrooms}</span>
+                      <span>
+                        {property.bathrooms}
+                        <span className="hidden xl:inline">
+                          {property.bathrooms === 1 || property.bathrooms === 0 ? ' room' : ' rooms'}
+                        </span>
+                      </span>
                     </div>
                     <div className="flex items-center">
                       <Square className="h-4 w-4 mr-1" />
                       <span>{property.propertyArea}m²</span>
                     </div>
                   </div>
-
-                  <div className="flex items-center gap-2 mb-3">
-                    <Badge className={getPropertyTypeColor(property.propertyType)}>
-                      {property.propertyType}
-                    </Badge>
-                  </div>
-
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-xl font-bold text-blue-600">
-                        {formatPrice(property.price)}
-                      </p>
-                      <p className="text-xs text-gray-500">
-                        Listed {formatDate(property.createdAt)}
-                      </p>
-                    </div>
-                    <Link href={`/properties/${property.id}`}>
-                      <Button size="sm">
-                        <Eye className="h-4 w-4 mr-1" />
-                        View
+                  <div className="flex flex-col items-start mt-2">
+                    <span className="text-md text-blue-600 font-medium">{formatPrice(property.price)}</span>
+                    <div className="flex gap-2 mt-4">
+                      <Button size="sm" variant="outline">
+                        <Heart className="h-4 w-4" />
                       </Button>
-                    </Link>
+                      <Link href={`/properties/${property.id}`}>
+                        <Button size="sm">
+                          <Eye className="h-4 w-4" />
+                          View
+                        </Button>
+                      </Link>
+                    </div>
                   </div>
                 </CardContent>
               </Card>
             ) : (
               // List View
-              <Card key={property.id} className="overflow-hidden hover:shadow-lg transition-shadow">
-                <CardContent className="p-6">
-                  <div className="flex gap-6">
-                    <div className="w-48 h-32 bg-gradient-to-br from-blue-100 to-blue-200 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <Building className="h-12 w-12 text-blue-400" />
-                    </div>
-
-                    <div className="flex-1">
-                      <div className="flex items-start justify-between mb-2">
-                        <div>
-                          <h3 className="font-semibold text-xl text-gray-900 mb-1">
-                            {property.title}
-                          </h3>
-                          <div className="flex items-center text-gray-600 mb-2">
-                            <MapPin className="h-4 w-4 mr-1" />
-                            <span className="text-sm">
-                              {property.address}, {property.city}
-                            </span>
-                          </div>
-                        </div>
-                        <div className="text-right">
-                          <p className="text-2xl font-bold text-blue-600">
-                            {formatPrice(property.price)}
-                          </p>
-                          <p className="text-xs text-gray-500">
-                            Listed {formatDate(property.createdAt)}
-                          </p>
-                        </div>
-                      </div>
-
-                      <div className="flex items-center gap-6 text-sm text-gray-600 mb-3">
-                        <div className="flex items-center">
-                          <Bed className="h-4 w-4 mr-1" />
-                          <span>{property.bedrooms} bedrooms</span>
-                        </div>
-                        <div className="flex items-center">
-                          <Bath className="h-4 w-4 mr-1" />
-                          <span>{property.bathrooms} bathrooms</span>
-                        </div>
-                        <div className="flex items-center">
-                          <Square className="h-4 w-4 mr-1" />
-                          <span>{property.propertyArea}m²</span>
-                        </div>
-                      </div>
-
-                      <div className="flex items-center justify-between">
-                        <div className="flex gap-2">
+              <>
+                {/* Mobile Size */}
+                <div className="block md:hidden">
+                  <Card key={property.id} className="overflow-hidden relative group p-0">
+                    <div className="relative w-full h-48">
+                      <Image src="/images/house1.jpg" alt={property.title} fill className="object-cover w-full h-full" />
+                      <div className="absolute inset-0 bg-black/50 group-hover:bg-black/70 transition-colors duration-200" />
+                      <div className="absolute top-2 left-2 right-2 flex items-center justify-between z-10 mt-1">
+                        <div className="flex items-center gap-2">
                           <Badge className={getPropertyTypeColor(property.propertyType)}>
                             {property.propertyType}
                           </Badge>
@@ -582,23 +543,146 @@ export default function PropertiesPage() {
                             {property.listingType}
                           </Badge>
                         </div>
-                        <div className="flex gap-2">
-                          <Button size="sm" variant="outline">
-                            <Heart className="h-4 w-4 mr-1" />
-                            Save
-                          </Button>
-                          <Link href={`/properties/${property.id}`}>
-                            <Button size="sm">
-                              <Eye className="h-4 w-4 mr-1" />
-                              View Details
-                            </Button>
-                          </Link>
+                        <span className="text-xs text-white bg-black/40 rounded px-2 py-0.5">
+                          Posted on {formatDate(property.createdAt)}
+                        </span>
+                      </div>
+                      {/* Title */}
+                      <div className="absolute left-2 right-2 top-10 z-10">
+                        <h3 className="text-lg font-bold text-white line-clamp-1 drop-shadow">
+                          {property.title}
+                        </h3>
+                      </div>
+                      {/* City */}
+                      <div className="absolute left-2 right-2 top-18 z-10 flex items-center">
+                        <MapPin className="h-4 w-4 text-white mr-1" />
+                        <span className="text-sm text-white drop-shadow">
+                          {property.address}, {property.city}
+                        </span>
+                      </div>
+                      {/* Features */}
+                      <div className="absolute left-2 right-2 top-26 flex items-center gap-4 z-10">
+                        <div className="flex items-center">
+                          <Bed className="h-5 w-5 text-white" />
+                          <span className="text-white ml-1">
+                            {property.bedrooms}
+                            <span className="hidden xl:inline">
+                              {property.bedrooms === 1 || property.bedrooms === 0 ? ' room' : ' rooms'}
+                            </span>
+                          </span>
+                        </div>
+                        <div className="flex items-center">
+                          <Bath className="h-5 w-5 text-white" />
+                          <span className="text-white ml-1">
+                            {property.bathrooms}
+                            <span className="hidden xl:inline">
+                              {property.bathrooms === 1 || property.bathrooms === 0 ? ' room' : ' rooms'}
+                            </span>
+                          </span>
+                        </div>
+                        <div className="flex items-center">
+                          <Square className="h-5 w-5 text-white" />
+                          <span className="text-white ml-1">{property.propertyArea}m²</span>
                         </div>
                       </div>
+
+                      <div className="absolute bottom-3 left-2 flex gap-2 z-10">
+                        <Button size="sm" variant="secondary" className="flex items-center">
+                          <Heart className="h-4 w-4 mr-1" />
+                          Save
+                        </Button>
+                      </div>
+                      <div className="absolute bottom-3 right-2 flex gap-2 z-10">
+                        <Link href={`/properties/${property.id}`}>
+                          <Button size="sm">
+                            <Eye className="h-4 w-4 mr-1" />
+                            View
+                          </Button>
+                        </Link>
+                      </div>
                     </div>
-                  </div>
-                </CardContent>
-              </Card>
+                  </Card>
+                </div>
+                {/* Desktop Size */}
+                <div className="hidden md:block">
+                  <Card key={property.id} className="overflow-hidden hover:shadow-lg transition-shadow">
+                    <CardContent className="px-6">
+                      <div className="flex gap-6">
+                        <div className="w-80 h-44 rounded-lg flex-shrink-0 overflow-hidden relative">
+                          <Image src="/images/house1.jpg" alt={property.title} fill className="object-cover w-full h-full" />
+                        </div>
+                        <div className="flex-1">
+                          <div className="flex items-start justify-between">
+                            <div>
+                              <h3 className="font-semibold text-2xl text-gray-900">
+                                {property.title}
+                              </h3>
+                              <div className="flex items-center text-gray-600 my-2">
+                                <MapPin className="h-4 w-4 mr-1" />
+                                <span className="text-md">
+                                  {property.address}, {property.city}
+                                </span>
+                              </div>
+                            </div>
+                            <div className="text-right">
+                              <Badge className={getPropertyTypeColor(property.propertyType)}>
+                                {property.propertyType}
+                              </Badge>
+                              <Badge className={getListingTypeColor(property.listingType)}>
+                                {property.listingType}
+                              </Badge>
+                            </div>
+                          </div>
+                          <div className="flex items-center gap-5 text-md text-gray-600 mb-2">
+                            <div className="flex items-center">
+                              <Bed className="h-4 w-4 mr-1" />
+                              <span>
+                                {property.bedrooms}
+                                <span className="hidden xl:inline">
+                                  {property.bedrooms === 1 || property.bedrooms === 0 ? ' room' : ' rooms'}
+                                </span>
+                              </span>
+                            </div>
+                            <div className="flex items-center">
+                              <Bath className="h-4 w-4 mr-1" />
+                              <span>
+                                {property.bathrooms}
+                                <span className="hidden xl:inline">
+                                  {property.bathrooms === 1 || property.bathrooms === 0 ? ' room' : ' rooms'}
+                                </span>
+                              </span>
+                            </div>
+                            <div className="flex items-center">
+                              <Square className="h-4 w-4 mr-1" />
+                              <span>{property.propertyArea}m²</span>
+                            </div>
+                          </div>
+                          <div className="flex items-center justify-between">
+                            <p className="text-xl font-bold text-blue-600 flex">
+                              {formatPrice(property.price)}
+                            </p>
+                            <div className="flex gap-2">
+                              <Button size="sm" variant="outline">
+                                <Heart className="h-4 w-4 mr-1" />
+                                Save
+                              </Button>
+                              <Link href={`/properties/${property.id}`}>
+                                <Button size="sm">
+                                  <Eye className="h-4 w-4 mr-1" />
+                                  View Details
+                                </Button>
+                              </Link>
+                            </div>
+                          </div>
+                          <p className="text-right text-sm text-gray-500 mt-4">
+                            Posted on {formatDate(property.createdAt)}
+                          </p>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+              </>
             )
           ))}
         </div>
