@@ -8,14 +8,14 @@ import Header from '@/components/layout/Header';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { 
-  Check, 
-  Star, 
-  Crown, 
-  Zap, 
-  Shield, 
-  Users, 
-  BarChart3, 
+import {
+  Check,
+  Star,
+  Crown,
+  Zap,
+  Shield,
+  Users,
+  BarChart3,
   Headphones,
   Camera,
   Home
@@ -160,7 +160,7 @@ export default function MembershipPage() {
       window.location.href = `/auth/login?redirect=/membership/register?plan=${planId}`;
       return;
     }
-    
+
     // Redirect to registration form
     window.location.href = `/membership/register?plan=${planId}`;
   };
@@ -168,7 +168,7 @@ export default function MembershipPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
-      
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Hero Section */}
         <div className="text-center mb-16">
@@ -179,7 +179,7 @@ export default function MembershipPage() {
             Choose Your Membership Plan
           </h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Unlock the full potential of our real estate platform. List more properties, 
+            Unlock the full potential of our real estate platform. List more properties,
             get better visibility, and access premium features.
           </p>
         </div>
@@ -222,58 +222,57 @@ export default function MembershipPage() {
           /* Pricing Plans */
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
             {plans.map((plan) => (
-            <Card 
-              key={plan.id} 
-              className={`relative overflow-hidden transition-all duration-300 hover:shadow-xl ${
-                plan.popular ? 'ring-2 ring-green-500 scale-105' : ''
-              } ${selectedPlan === plan.id ? 'ring-2 ring-blue-500' : ''}`}
-            >
-              {plan.popular && (
-                <div className="absolute top-0 left-0 right-0">
-                  <div className="bg-gradient-to-r from-green-500 to-green-600 text-white text-center py-2 text-sm font-medium">
-                    Most Popular
+              <Card
+                key={plan.id}
+                className={`relative overflow-hidden transition-all duration-300 hover:shadow-xl ${plan.popular ? 'ring-2 ring-green-500 scale-105' : ''
+                  } ${selectedPlan === plan.id ? 'ring-2 ring-blue-500' : ''}`}
+              >
+                {plan.popular && (
+                  <div className="absolute top-0 left-0 right-0">
+                    <div className="bg-gradient-to-r from-green-500 to-green-600 text-white text-center py-2 text-sm font-medium">
+                      Most Popular
+                    </div>
                   </div>
-                </div>
-              )}
-              
-              <CardHeader className={`text-center ${plan.popular ? 'pt-12' : 'pt-6'}`}>
-                <div className={`inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r ${getPlanColor(plan.color)} text-white rounded-full mb-4 mx-auto`}>
-                  {getPlanIcon(plan.name)}
-                </div>
-                <CardTitle className="text-2xl font-bold">{plan.name}</CardTitle>
-                <CardDescription className="text-gray-600 mb-4">
-                  {plan.description}
-                </CardDescription>
-                <div className="text-center">
-                  <span className="text-4xl font-bold text-gray-900">
-                    {formatPrice(plan.price)}
-                  </span>
-                  <span className="text-gray-600 ml-2">/ month</span>
-                </div>
-              </CardHeader>
-              
-              <CardContent className="space-y-6">
-                <ul className="space-y-3">
-                  {plan.features.map((feature, index) => (
-                    <li key={index} className="flex items-start">
-                      <Check className="h-5 w-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
-                      <span className="text-gray-700">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-                
-                <div className="pt-4">
-                  <Button 
-                    className={`w-full ${plan.popular ? 'bg-green-600 hover:bg-green-700' : ''}`}
-                    onClick={() => handleSelectPlan(plan.id)}
-                  >
-                    {isAuthenticated ? 'Choose Plan' : 'Sign Up & Choose Plan'}
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
+                )}
+
+                <CardHeader className={`text-center ${plan.popular ? 'pt-12' : 'pt-6'}`}>
+                  <div className={`inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r ${getPlanColor(plan.color)} text-white rounded-full mb-4 mx-auto`}>
+                    {getPlanIcon(plan.name)}
+                  </div>
+                  <CardTitle className="text-2xl font-bold">{plan.name}</CardTitle>
+                  <CardDescription className="text-gray-600 mb-4">
+                    {plan.description}
+                  </CardDescription>
+                  <div className="text-center">
+                    <span className="text-4xl font-bold text-gray-900">
+                      {formatPrice(plan.price)}
+                    </span>
+                    <span className="text-gray-600 ml-2">/ month</span>
+                  </div>
+                </CardHeader>
+
+                <CardContent className="space-y-6">
+                  <ul className="space-y-3">
+                    {plan.features.map((feature, index) => (
+                      <li key={index} className="flex items-start">
+                        <Check className="h-5 w-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
+                        <span className="text-gray-700">{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  <div className="pt-4">
+                    <Button
+                      className={`w-full ${plan.popular ? 'bg-green-600 hover:bg-green-700' : ''}`}
+                      onClick={() => handleSelectPlan(plan.id)}
+                    >
+                      {isAuthenticated ? 'Choose Plan' : 'Sign Up & Choose Plan'}
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
         )}
 
         {/* Feature Comparison */}
@@ -388,19 +387,19 @@ export default function MembershipPage() {
         </div>
 
         {/* CTA Section */}
-        <div className="mt-16 text-center bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg p-8 text-white">
-          <h3 className="text-2xl font-bold mb-4">
+        <div className="mt-16 text-center bg-gradient-to-r from-green-700 to-green-300 rounded-lg p-8 text-white">
+          <h3 className="text-2xl font-bold mb-2">
             Ready to Get Started?
           </h3>
-          <p className="text-blue-100 mb-6">
+          <p className="mb-6">
             Join thousands of successful real estate professionals using our platform.
           </p>
           {!isAuthenticated && (
             <div className="space-x-4">
               <Button asChild variant="secondary">
-                <Link href="/auth/register">Create Account</Link>
+                <Link href="/auth/register">Be a Member</Link>
               </Button>
-              <Button asChild variant="outline" className="text-white border-white hover:bg-white hover:text-blue-600">
+              <Button asChild variant="secondary">
                 <Link href="/auth/login">Sign In</Link>
               </Button>
             </div>
