@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Loader2, Eye, EyeOff } from 'lucide-react';
+import { Loader2, Eye, EyeOff, ArrowLeft } from 'lucide-react';
 
 export default function RegisterPage() {
   const [formData, setFormData] = useState({
@@ -89,7 +89,7 @@ export default function RegisterPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!validateForm()) {
       return;
     }
@@ -110,7 +110,7 @@ export default function RegisterPage() {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
-    
+
     // Clear error when user starts typing
     if (errors[name]) {
       setErrors(prev => ({ ...prev, [name]: '' }));
@@ -118,21 +118,17 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
         <div className="text-center">
-          <div className="mx-auto h-12 w-12 bg-blue-600 rounded-lg flex items-center justify-center mb-4">
-            <span className="text-white text-2xl">🏠</span>
-          </div>
-          <h1 className="text-3xl font-bold text-gray-900">Real Estate Platform</h1>
-          <p className="mt-2 text-sm text-gray-600">
-            Join our professional property management system
-          </p>
+          <h1 className="text-3xl font-bold text-gray-900">Eco Real Estate</h1>
         </div>
 
         <Card>
-          <CardHeader>
-            <CardTitle>Create your account</CardTitle>
+          <CardHeader className="text-center">
+            <CardTitle>
+              <h2 className="text-xl font-bold">Register</h2>
+            </CardTitle>
             <CardDescription>
               Fill in your details to get started
             </CardDescription>
@@ -141,14 +137,14 @@ export default function RegisterPage() {
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <Label htmlFor="firstName">First Name</Label>
+                  <Label htmlFor="firstName" className="mb-2 text-md">First Name</Label>
                   <Input
                     id="firstName"
                     name="firstName"
                     type="text"
                     value={formData.firstName}
                     onChange={handleInputChange}
-                    placeholder="John"
+                    placeholder="Ex: John"
                     className={errors.firstName ? 'border-red-500' : ''}
                   />
                   {errors.firstName && (
@@ -157,14 +153,14 @@ export default function RegisterPage() {
                 </div>
 
                 <div>
-                  <Label htmlFor="lastName">Last Name</Label>
+                  <Label htmlFor="lastName" className="mb-2 text-md">Last Name</Label>
                   <Input
                     id="lastName"
                     name="lastName"
                     type="text"
                     value={formData.lastName}
                     onChange={handleInputChange}
-                    placeholder="Doe"
+                    placeholder="Ex: Doe"
                     className={errors.lastName ? 'border-red-500' : ''}
                   />
                   {errors.lastName && (
@@ -174,14 +170,14 @@ export default function RegisterPage() {
               </div>
 
               <div>
-                <Label htmlFor="username">Username</Label>
+                <Label htmlFor="username" className="mb-2 text-md">Username</Label>
                 <Input
                   id="username"
                   name="username"
                   type="text"
                   value={formData.username}
                   onChange={handleInputChange}
-                  placeholder="johndoe"
+                  placeholder="Ex: johndoe"
                   className={errors.username ? 'border-red-500' : ''}
                 />
                 {errors.username && (
@@ -190,14 +186,14 @@ export default function RegisterPage() {
               </div>
 
               <div>
-                <Label htmlFor="email">Email</Label>
+                <Label htmlFor="email" className="mb-2 text-md">Email</Label>
                 <Input
                   id="email"
                   name="email"
                   type="email"
                   value={formData.email}
                   onChange={handleInputChange}
-                  placeholder="john@example.com"
+                  placeholder="Ex: john@example.com"
                   className={errors.email ? 'border-red-500' : ''}
                 />
                 {errors.email && (
@@ -206,7 +202,7 @@ export default function RegisterPage() {
               </div>
 
               <div>
-                <Label htmlFor="password">Password</Label>
+                <Label htmlFor="password" className="mb-2 text-md">Password</Label>
                 <div className="relative">
                   <Input
                     id="password"
@@ -235,7 +231,7 @@ export default function RegisterPage() {
               </div>
 
               <div>
-                <Label htmlFor="confirmPassword">Confirm Password</Label>
+                <Label htmlFor="confirmPassword" className="mb-2 text-md">Confirm Password</Label>
                 <div className="relative">
                   <Input
                     id="confirmPassword"
@@ -292,7 +288,15 @@ export default function RegisterPage() {
               <div className="mt-6">
                 <Link href="/auth/login">
                   <Button variant="outline" className="w-full">
-                    Sign in instead
+                    Sign in
+                  </Button>
+                </Link>
+              </div>
+              <div className="mt-2">
+                <Link href="/">
+                  <Button variant="ghost" className="w-full">
+                    <ArrowLeft className="mt-1 h-4 w-4" />
+                    Return to home
                   </Button>
                 </Link>
               </div>
